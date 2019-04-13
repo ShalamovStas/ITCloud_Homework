@@ -10,21 +10,9 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
 {
     class ExploreAssemblyHelper
     {
-        private SortedDictionary<int, string> keyValuePairs;
-        private string tempKey;
-        private int tempIndex;
+        private SortedDictionary<int?, string> keyValuePairs = new SortedDictionary<int?, string>();
 
-        public string Password{ get; private set; }
-
-        public ExploreAssemblyHelper()
-        {
-            keyValuePairs = new SortedDictionary<int, string>();
-            tempKey = null;
-            tempIndex = -1;
-        }
-
-
-        public void ExploreAssembly(string path)
+        public string ExploreAssembly(string path)
         {
             Assembly assembly = Assembly.LoadFrom(path);
             Console.WriteLine(assembly.FullName);
@@ -32,130 +20,117 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
             foreach (Type t in assembly.GetTypes())
                 ExploreType(t);
 
+            Console.ForegroundColor = ConsoleColor.White;
+
             StringBuilder stringBuilder = new StringBuilder();
+
             foreach (var item in keyValuePairs)
-            {
                 stringBuilder.Append(item.Value);
-            }
-            Password = stringBuilder.ToString();
+
+            return stringBuilder.ToString();
         }
 
         private void ExploreType(Type type)
         {
-            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine(Environment.NewLine + new string('-', 20));
 
-            object instance = Activator.CreateInstance(type);
-            ExploreAttributes(type.GetCustomAttributes(), out bool needToExplore, out bool keyWasFound);
+            var needToExplore = ExploreAttributeIfTypeNeedToExplore(type.GetCustomAttribute<IgnoreMeAttribute>());
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine(type.Name + Environment.NewLine);
+            Console.ForegroundColor = ConsoleColor.White;
 
             if (needToExplore == false)
                 return;
 
-            ExploreProperties(instance);
-            ExploreFields(instance);
-            ExploreMethods(instance);
+            ExploreProperties(type);
+            ExploreFields(type);
+            ExploreMethods(type);
         }
 
-        private void ExploreProperties(object instance)
+       
+
+        private void ExploreProperties(Type type)
         {
-            PropertyInfo[] properties = instance.GetType().GetProperties();
+            PropertyInfo[] properties = type.GetProperties();
 
             foreach (PropertyInfo property in properties)
             {
-                ExploreAttributes(property.GetCustomAttributes(), out bool needToExplore, out bool keyWasFound);
+                int? key = ExploreAttributeSearchingForKey(property.GetCustomAttribute<PasswordIsHereAttribute>());
 
-                object res = property.GetValue(instance, null);
-                Console.ForegroundColor = ConsoleColor.Cyan;
+                string res = (string)property.GetValue(CreateInstance(type), null);
                 Console.WriteLine($"{property.Name} [{res}]\n");
-                if (keyWasFound)
-                    SavePartOfKey(key: (string)res);
+                if (key != null)
+                    SavePartOfKey(key, res);
             }
         }
 
-        private void ExploreMethods(object instance)
+        private void ExploreMethods(Type type)
         {
-            MethodInfo[] methods = instance.GetType().GetMethods();
+            MethodInfo[] methods = type.GetMethods();
 
             foreach (MethodInfo method in methods)
             {
-                ExploreAttributes(method.GetCustomAttributes(), out bool needToExplore, out bool keyWasFound);
+                int? key = ExploreAttributeSearchingForKey(method.GetCustomAttribute<PasswordIsHereAttribute>());
 
-                object res = null;
-                if (keyWasFound)
+                if (key != null)
                 {
-                    res = method.Invoke(instance, null);
+                    string res = (string)method.Invoke(CreateInstance(type), null);
 
-                    Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine($"{method.Name} [{res}]\n");
-                    if (keyWasFound)
-                        SavePartOfKey(key: (string)res);
+
+                    SavePartOfKey(key, res);
                 }
             }
         }
 
-        
-
-        private void ExploreFields(object instance)
+        private void ExploreFields(Type type)
         {
-            FieldInfo[] fields = instance.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo[] fields = type.GetFields(BindingFlags.NonPublic | BindingFlags.Instance);
 
             foreach (var field in fields)
             {
-                ExploreAttributes(field.GetCustomAttributes(), out bool needToExplore, out bool keyWasFound);
+                int? key = ExploreAttributeSearchingForKey(field.GetCustomAttribute<PasswordIsHereAttribute>());
 
-                var res = field.GetValue(instance);
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                string res = (string)field.GetValue(CreateInstance(type));
                 Console.WriteLine($"{field.Name} [{res}]\n");
-                if (keyWasFound)
-                    SavePartOfKey(key: (string)res);
-
+                if (key != null)
+                    SavePartOfKey(key, res);
             }
         }
 
 
-        private void ExploreAttributes(IEnumerable<Attribute> attributes, out bool needToExplore, out bool keyWasFound)
+        private int? ExploreAttributeSearchingForKey(PasswordIsHereAttribute attribute)
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            keyWasFound = false;
-            needToExplore = false;
-            if (attributes.Count() == 0)
-            {
-                needToExplore = true;
-                return;
-            }
+            if (attribute == null)
+                return null;
 
-            PasswordIsHereAttribute attributeWithPassword = attributes.First() as PasswordIsHereAttribute;
-            if (attributeWithPassword != null)
-            {
-                Console.WriteLine($"[PasswordIsHere(ChunkNo = {attributeWithPassword.ChunkNo})]");
-                SavePartOfKey(index: attributeWithPassword.ChunkNo);
-                needToExplore = true;
-                keyWasFound = true;
-                return;
-            }
-            IgnoreMeAttribute attributeIgnoreMe = attributes.First() as IgnoreMeAttribute;
-
-            if (attributeIgnoreMe != null)
-                Console.WriteLine($"[IgnoreMeAttribute]");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"[PasswordIsHere(ChunkNo = {attribute.ChunkNo})]");
+            Console.ForegroundColor = ConsoleColor.White;
+            return attribute.ChunkNo;
         }
 
-
-        private void SavePartOfKey(int index = -1, string key = null)
+        private bool ExploreAttributeIfTypeNeedToExplore(IgnoreMeAttribute attribute)
         {
-            if (index != -1)
-                tempIndex = index;
-            if (key != null)
-                tempKey = key;
+            if (attribute == null)
+                return true;
 
-            if (tempIndex != -1 && tempKey != null)
-            {
-                keyValuePairs.Add(tempIndex, tempKey);
-                tempIndex = -1;
-                tempKey = null;
-            }
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"[IgnoreMeAttribute]");
+            Console.ForegroundColor = ConsoleColor.White;
+            return false;
+        }
+
+        
+        private void SavePartOfKey(int? index, string key)
+        {
+            keyValuePairs.Add(index, key);
+        }
+
+        private object CreateInstance(Type type)
+        {
+            return Activator.CreateInstance(type);
         }
     }
 }
