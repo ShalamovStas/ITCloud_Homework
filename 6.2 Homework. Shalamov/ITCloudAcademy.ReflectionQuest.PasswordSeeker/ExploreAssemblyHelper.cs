@@ -1,16 +1,15 @@
 ﻿using ITCloudAcademy.ReflectionQuest.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
 {
     class ExploreAssemblyHelper
     {
-        private SortedDictionary<int?, string> keyValuePairs = new SortedDictionary<int?, string>();
+        private SortedDictionary<int, string> keyValuePairs = new SortedDictionary<int, string>();
+        private InstanceManager instanceManager = new InstanceManager();
 
         public string ExploreAssembly(string path)
         {
@@ -34,7 +33,7 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
         {
             Console.WriteLine(Environment.NewLine + new string('-', 20));
 
-            var needToExplore = ExploreAttributeIfTypeNeedToExplore(type.GetCustomAttribute<IgnoreMeAttribute>());
+            var needToExplore = ExploreAttributeIfTypeNeedToExplore(type);
 
             Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine(type.Name + Environment.NewLine);
@@ -48,20 +47,18 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
             ExploreMethods(type);
         }
 
-       
-
         private void ExploreProperties(Type type)
         {
             PropertyInfo[] properties = type.GetProperties();
 
             foreach (PropertyInfo property in properties)
             {
-                int? key = ExploreAttributeSearchingForKey(property.GetCustomAttribute<PasswordIsHereAttribute>());
+                int? key = ExploreAttributeSearchingForKey(property);
 
-                string res = (string)property.GetValue(CreateInstance(type), null);
+                string res = (string)property.GetValue(instanceManager.GetInstance(type), null);
                 Console.WriteLine($"{property.Name} [{res}]\n");
                 if (key != null)
-                    SavePartOfKey(key, res);
+                    SavePartOfKey((int)key, res);
             }
         }
 
@@ -71,15 +68,15 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
 
             foreach (MethodInfo method in methods)
             {
-                int? key = ExploreAttributeSearchingForKey(method.GetCustomAttribute<PasswordIsHereAttribute>());
+                int? key = ExploreAttributeSearchingForKey(method);
 
                 if (key != null)
                 {
-                    string res = (string)method.Invoke(CreateInstance(type), null);
+                    string res = (string)method.Invoke(instanceManager.GetInstance(type), null);
 
                     Console.WriteLine($"{method.Name} [{res}]\n");
 
-                    SavePartOfKey(key, res);
+                    SavePartOfKey((int)key, res);
                 }
             }
         }
@@ -90,29 +87,30 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
 
             foreach (var field in fields)
             {
-                int? key = ExploreAttributeSearchingForKey(field.GetCustomAttribute<PasswordIsHereAttribute>());
+                int? key = ExploreAttributeSearchingForKey(field);
 
-                string res = (string)field.GetValue(CreateInstance(type));
+                string res = (string)field.GetValue(instanceManager.GetInstance(type));
                 Console.WriteLine($"{field.Name} [{res}]\n");
                 if (key != null)
-                    SavePartOfKey(key, res);
+                    SavePartOfKey((int)key, res);
             }
         }
 
-
-        private int? ExploreAttributeSearchingForKey(PasswordIsHereAttribute attribute)
+        private int? ExploreAttributeSearchingForKey(MemberInfo member)
         {
+            PasswordIsHereAttribute attribute = member.GetCustomAttribute<PasswordIsHereAttribute>();
             if (attribute == null)
                 return null;
 
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine($"[PasswordIsHere(ChunkNo = {attribute.ChunkNo})]");
+            Console.WriteLine($"[PasswordIsHere(ChunkNo = {attribute.ChunkNo})]");;
             Console.ForegroundColor = ConsoleColor.White;
             return attribute.ChunkNo;
         }
 
-        private bool ExploreAttributeIfTypeNeedToExplore(IgnoreMeAttribute attribute)
+        private bool ExploreAttributeIfTypeNeedToExplore(MemberInfo member)
         {
+            IgnoreMeAttribute attribute = member.GetCustomAttribute<IgnoreMeAttribute>();
             if (attribute == null)
                 return true;
 
@@ -122,15 +120,9 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
             return false;
         }
 
-        
-        private void SavePartOfKey(int? index, string key)
+        private void SavePartOfKey(int index, string key)
         {
             keyValuePairs.Add(index, key);
-        }
-
-        private object CreateInstance(Type type)
-        {
-            return Activator.CreateInstance(type);
-        }
+        }  
     }
 }
