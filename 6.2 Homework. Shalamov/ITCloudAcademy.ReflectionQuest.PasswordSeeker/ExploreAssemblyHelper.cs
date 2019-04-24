@@ -25,7 +25,7 @@ namespace ITCloudAcademy.ReflectionQuest.PasswordSeeker
 
             foreach (var item in keyValuePairs)
                 stringBuilder.Append(item.Value);
-
+            Console.WriteLine(instanceManager.Count);
             return stringBuilder.ToString();
         }
 
