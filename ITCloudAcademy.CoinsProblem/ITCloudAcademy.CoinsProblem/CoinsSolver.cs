@@ -22,12 +22,14 @@ namespace ITCloudAcademy.CoinsProblem
 
         private static int FindBucketIndex(int weight)
         {
-            for (int i = 0; i < 10; i++)
-            {
-                if ((weight + i + 1) % 55 == 0)
-                    return i + 1;
-            }
-            throw new InvalidDataException();
+            //for (int i = 0; i < 10; i++)
+            //{
+            //    if ((weight + i + 1) % 55 == 0)
+            //        return i + 1;
+            //}
+            //throw new InvalidDataException();
+
+            return (int)Math.Round((double)weight / 55) * 55 - weight; ;
         }
     }
 }

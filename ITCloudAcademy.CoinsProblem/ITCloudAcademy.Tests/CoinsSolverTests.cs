@@ -17,6 +17,7 @@ namespace ITCloudAcademy.Tests
         [DataRow(8, 358)]
         [DataRow(4, 358)]
         [DataRow(10, 358)]
+        [DataRow(1, 1000)]
         public void GetFakeCoinsIndex_ShouldReturnRightIndex(int wrongBucketIndex, int coinWeight)
         {
             int solution = CoinsSolver.GetFakeCoinsIndex((coinsCountArray) => GenerateWeight(wrongBucketIndex, coinWeight, coinsCountArray));
