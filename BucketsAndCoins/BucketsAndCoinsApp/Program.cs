@@ -7,12 +7,18 @@ namespace BucketsAndCoinsApp
         static void Main(string[] args)
         {
 
-            GetData(out int buckestCount, out int coinWeight, out int wrongBucketIndex);
+            //GetData(out int buckestCount, out int coinWeight, out int wrongBucketIndex);
 
-            double coinsWeight = GetWeight(buckestCount, coinWeight, wrongBucketIndex);
-            double index = FindBucketIndex(buckestCount, coinWeight, coinsWeight);
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine($"Bucket index with wrong coins = {index}");
+            //double coinsWeight = GetWeight(buckestCount, coinWeight, wrongBucketIndex);
+            //double index = FindBucketIndex(buckestCount, coinWeight, coinsWeight);
+            //Console.ForegroundColor = ConsoleColor.DarkGreen;
+            //Console.WriteLine($"Bucket index with wrong coins = {index}");
+
+            for (int i = 0; i < 1000; i++)
+            {
+                if(i%55 == 0)
+                    Console.WriteLine(i);
+            }
 
             Console.ReadKey();
         }
@@ -43,12 +49,12 @@ namespace BucketsAndCoinsApp
         private static double GetWeight(int bucketsCount, int coinWeight, int wrongBucketIndex)
         {
             double normalWeight = 0.5 * bucketsCount * (bucketsCount + 1);
-            return normalWeight - wrongBucketIndex * coinWeight;
+            return (normalWeight - wrongBucketIndex) * coinWeight;
         }
 
         private static double FindBucketIndex(int bucketsCount, int coinWeight, double coinsGroupWeight)
         {
-            double normalWeight = 0.5 * bucketsCount * (bucketsCount + 1);
+            double normalWeight = 0.5 * coinWeight * bucketsCount * (bucketsCount + 1);
             return (normalWeight - coinsGroupWeight) / coinWeight;
         }
     }
