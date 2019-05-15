@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeaFight", "SeaFight\SeaFight.csproj", "{09C7FF1E-E490-4006-A038-10FE538E64FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASCII", "ASCII\ASCII.csproj", "{81DF00A7-5505-4B62-8900-0AA31CAC87C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{09C7FF1E-E490-4006-A038-10FE538E64FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C7FF1E-E490-4006-A038-10FE538E64FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C7FF1E-E490-4006-A038-10FE538E64FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C7FF1E-E490-4006-A038-10FE538E64FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81DF00A7-5505-4B62-8900-0AA31CAC87C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81DF00A7-5505-4B62-8900-0AA31CAC87C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81DF00A7-5505-4B62-8900-0AA31CAC87C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81DF00A7-5505-4B62-8900-0AA31CAC87C6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A1051E2B-F23D-4129-9BB7-029E0BA9505D}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Alphabetical">
+  <Comment CommentText="Realisation&#xD;&#xA;">
+    <Position X="29.945" Y="6.923" Height="0.75" Width="10.19" />
+  </Comment>
+  <Comment CommentText="Realisation&#xD;&#xA;">
+    <Position X="18.403" Y="6.612" Height="0.75" Width="10.19" />
+  </Comment>
+  <Comment CommentText="Realisation&#xD;&#xA;">
+    <Position X="6.75" Y="6.75" Height="0.75" Width="8.332" />
+  </Comment>
+  <Class Name="SeaFight.Tools.ActionBarPrinterModel">
+    <Position X="32.25" Y="9.5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAUAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Printers\ActionBarPrinterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.Tools.MessageBarPrinterModel">
+    <Position X="30" Y="9" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAQAUAAAQAAAEAAAAAACAAAAAAAQAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Printers\MessageBarPrinterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.GameBoardViewModel">
+    <Position X="12.25" Y="8" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AIABAAAAARAAAQAAAAAAIAgAAIAFAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\GameBoardViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.ActionBarViewModel">
+    <Position X="10" Y="8" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAIAARAAAQAAIAAAAAgAAIAAIAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ActionBarViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.ViewModels.MessageViewModel">
+    <Position X="7" Y="8" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\MessageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.Printer">
+    <Position X="33.25" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAAQAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\Printer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.Printers.GameBoardPrinterModel">
+    <Position X="35.5" Y="9" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>DDARAAAAAUACAAIAAAAAIAAAAAEEAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Printers\GameBoardPrinterModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.MessageView">
+    <Position X="8.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQgAAQAAAUAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\MessageView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.ActionBarView">
+    <Position X="10.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAQAAABAAAAAAAAAAAAgEAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\ActionBarView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.View">
+    <Position X="9.5" Y="0.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAQAAAAAAAAAAAAAAAAAAAAAAAAAMYAA=</HashCode>
+      <FileName>AbstractClasses\View.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.ActionBarPrinter">
+    <Position X="33" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAFAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\ActionPrinter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.MessageBarPrinter">
+    <Position X="30.75" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\MessagePrinter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.GameBoardView">
+    <Position X="12.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\GameBoardView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.GameBoardPrinter">
+    <Position X="35" Y="4" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>AbstractClasses\GameBoardPrinter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.Activities.MainActionBarActivity">
+    <Position X="22.75" Y="8.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>KAACgAAEAgABAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>ActivitiesForApplication\Activities\MainActionBarActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.AbstractClasses.Activity">
+    <Position X="21" Y="1" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAI=</HashCode>
+      <FileName>AbstractClasses\Activity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.Activities.ArrangeShipsActionBarActivity">
+    <Position X="25.75" Y="8" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACgAAEAgCREAAAEAgAAAAIgAAAAAEAAAAAAAAAAAI=</HashCode>
+      <FileName>ActivitiesForApplication\Activities\ArrangeShipsActionBarActivity.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SeaFight.Managers.ArrangeShipsManagerActivity">
+    <Position X="18.75" Y="8" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>gAASgAAABACQEAAAAAAUAAAAEAAAAAEAIAAAIAAAAAI=</HashCode>
+      <FileName>ActivitiesForApplication\Managers\ArrangeShipsManagerActivity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="SeaFight.AbstractClasses.IManager" Collapsed="true">
+    <Position X="25.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAACAAAAAAAAUAAAAAAAAAAAAIAAAIAAAAAA=</HashCode>
+      <FileName>Interfaces\IManager.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
